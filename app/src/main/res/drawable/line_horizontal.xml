@@ -1,0 +1,6 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <size
+        android:height="1dp" /> <!-- Tinggi garis (tebal) -->
+    <solid
+        android:color="@color/black" /> <!-- Warna garis, ganti dengan warna yang Anda inginkan -->
+</shape>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/rounded_border"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="5dp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tgl_panen"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Tanggal Panen: "
+            android:layout_weight="1"
+            android:layout_width="0dp"/> <!-- Set width to 0dp -->
+
+        <TextView
+            android:id="@+id/hasil_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="right"
+            android:text="Detail >"
+            android:textStyle="bold"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Total Hasil Bersih"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:id="@+id/total_hasil_bersih"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="right"
+            android:textColor="@color/green"
+            android:text="Rp. 14.729.400" />
+
+    </TableRow>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@drawable/line_horizontal"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp"/>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Total Pendapatan"
+            android:layout_weight="1"
+            android:layout_width="0dp"/> <!-- Set width to 0dp -->
+
+        <TextView
+            android:id="@+id/total_pendapatan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="right"
+            android:text="Rp. 10.000.000" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Total Pengeluaran"
+            android:layout_weight="1"
+            android:layout_width="0dp"/> <!-- Set width to 0dp -->
+
+        <TextView
+            android:id="@+id/total_pengeluaran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="right"
+            android:text="Rp. 4.729.400" />
+
+    </TableRow>
+    </TableLayout>
+
+</LinearLayout>

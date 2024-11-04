@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".get_started"
+    android:background="@drawable/bg_sawit_started">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_started_transparan"
+        android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selamat Datang\nPetani Bangsa !"
+                android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_semibold"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="580dp"
+                android:textSize="34dp"
+                android:gravity="center"
+                android:layout_gravity="center">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jadilah bagian dari petani modern untuk memaksimalkan potensi komoditas di sektor perkebunan Indonesia"
+                android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_medium"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="10dp"
+                android:textSize="14dp"
+                android:gravity="center"
+                android:layout_gravity="center">
+            </TextView>
+
+            <Button
+                android:layout_width="279dp"
+                android:layout_height="55dp"
+                android:text="Get Started"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textSize="23dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/kuning_login"
+                android:layout_gravity="center"
+                android:id="@+id/button_get_started">
+            </Button>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

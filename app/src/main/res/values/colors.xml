@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="green">#3CB79B</color>
+    <color name="green_login">#1D4B3B</color>
+    <color name="kuning_login">#D3A222</color>
+    <color name="grey">#CCCCCC</color>
+    <color name="grey_login">#F3F3F3</color>
+    <color name="red">#D84946</color>
+</resources>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".kalkulasi_page">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/judul_kalkulasi"
+        tools:ignore="MissingConstraints">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/green_login"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_kembali"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:id="@+id/icon_kembali_kalkulasi" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kalkulasi"
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/icon_kembali_kalkulasi"
+                android:textColor="@color/kuning_login"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="20sp" /> <!-- Ganti dp ke sp untuk ukuran font -->
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- RecyclerView for displaying data -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_kalkulasi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_border"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/judul_kalkulasi" />
+
+    <LinearLayout
+        android:id="@+id/empty_view"
+        android:layout_width="191dp"
+        android:layout_height="277dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/kalkulasi_kosong" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Tidak ada Kalkulasi"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="center"
+            android:text="Buat kalkulasi baru agar \nditampilkan disini"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center">
+        <Button
+            android:layout_width="323dp"
+            android:layout_height="wrap_content"
+            android:text="Catat Kalkulasi Baru"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/green_login"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="14sp"
+            android:id="@+id/button_tambah_kalkulasi" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
