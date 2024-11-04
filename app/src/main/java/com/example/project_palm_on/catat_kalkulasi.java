@@ -33,7 +33,7 @@ import java.util.Map;
 public class catat_kalkulasi extends AppCompatActivity implements View.OnClickListener {
 
     EditText tglPanen, hargaTbs, beratTotalTbs, potonganTimbangan, upahPanen, biayaTransportasi, biayaLainnya;
-    Button buttonHitung;
+    Button buttonHitung, buttonKembali;
     ProgressDialog progressDialog;
 
     @Override
@@ -55,10 +55,12 @@ public class catat_kalkulasi extends AppCompatActivity implements View.OnClickLi
         biayaTransportasi = findViewById(R.id.biaya_transportasi_kalkulasi);
         biayaLainnya = findViewById(R.id.biaya_lainnya_kalkulasi);
         buttonHitung = findViewById(R.id.button_hitung_catat_kalkulasi);
+        buttonKembali = findViewById(R.id.button_kembali_catat_kalkulasi);
 
         progressDialog = new ProgressDialog(this);
 
         buttonHitung.setOnClickListener(this);
+        buttonKembali.setOnClickListener(this);
         };
 
     private void hitungHasil() {
@@ -122,11 +124,9 @@ public class catat_kalkulasi extends AppCompatActivity implements View.OnClickLi
             hitungHasil();
             Intent i = new Intent(catat_kalkulasi.this, kalkulasi_page.class);
             startActivity(i);
-        } else if (view.getId() == R.id.icon_kembali_kalkulasi) {
+        } else if (view.getId() == R.id.button_kembali_catat_kalkulasi) { // Ganti dengan ID yang benar
             Intent i = new Intent(catat_kalkulasi.this, kalkulasi_page.class);
             startActivity(i);
         }
-
     }
-
 }

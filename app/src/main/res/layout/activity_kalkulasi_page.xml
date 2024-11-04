@@ -45,10 +45,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_kalkulasi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@drawable/rounded_border"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/judul_kalkulasi" />
+        app:layout_constraintTop_toBottomOf="@id/judul_kalkulasi"
+        app:layout_constraintBottom_toTopOf="@+id/bagian_bawah"
+        app:layout_constraintHeight_default="wrap"/>
 
     <LinearLayout
         android:id="@+id/empty_view"
@@ -89,7 +91,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:gravity="center">
+        android:gravity="center"
+        android:id="@+id/bagian_bawah">
         <Button
             android:layout_width="323dp"
             android:layout_height="wrap_content"

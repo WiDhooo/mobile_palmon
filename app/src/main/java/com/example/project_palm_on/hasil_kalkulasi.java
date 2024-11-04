@@ -3,6 +3,7 @@ package com.example.project_palm_on;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -63,7 +64,13 @@ public class hasil_kalkulasi extends AppCompatActivity {
         }
 
         // Aksi untuk kembali
-        iconKembali.setOnClickListener(v -> finish());
+        iconKembali.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(hasil_kalkulasi.this, kalkulasi_page.class);
+                startActivity(i);
+            }
+        });
 
     }
 
