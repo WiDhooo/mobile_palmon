@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+<<<<<<< HEAD
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".account">
@@ -12,3 +13,252 @@
         android:text="account" />
 
 </FrameLayout>
+=======
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".account"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/green_login">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_kembali"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/icon_kembali_akun"
+                android:layout_marginStart="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Akun"
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/icon_kembali_akun"
+                android:textColor="@color/kuning_login"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="312dp"
+            android:layout_height="450dp"
+            app:cardElevation="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="20dp"
+                    android:id="@+id/profile_account">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:id="@+id/profile_image"
+                        android:src="@drawable/carousel_sawit_1" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ubah Foto"
+                        android:textColor="@color/grey_ubah_account"
+                        android:gravity="center"
+                        android:id="@+id/ubah_gambar_profile_account"
+                        android:layout_marginTop="10dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="273dp"
+                    android:layout_height="35dp"
+                    android:orientation="vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/bg_text_account"
+                    android:id="@+id/nama_account"
+                    android:layout_below="@+id/profile_account">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Nama"
+                        android:textColor="@color/black"
+                        android:background="@android:color/transparent"
+                        android:textSize="11dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/isi_nama_account" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="273dp"
+                    android:layout_height="35dp"
+                    android:orientation="vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_text_account"
+                    android:id="@+id/no_hp_account"
+                    android:layout_below="@+id/nama_account">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:hint="No.hp"
+                        android:textColor="@color/black"
+                        android:textSize="11dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/isi_no_hp_account" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="273dp"
+                    android:layout_height="35dp"
+                    android:orientation="vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_text_account"
+                    android:id="@+id/email_account"
+                    android:layout_below="@+id/no_hp_account">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:hint="Email"
+                        android:textSize="11dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/isi_email_account" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/email_account"
+                    android:id="@+id/kelamin_tanggal_account">
+
+                    <LinearLayout
+                        android:layout_width="130dp"
+                        android:layout_height="35dp"
+                        android:orientation="vertical"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/bg_text_account"
+                        android:id="@+id/jenis_kelamin_account">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jenis Kelamin"
+                            android:textSize="11dp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="center"
+                            android:padding="10dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="130dp"
+                        android:layout_height="35dp"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/bg_text_account"
+                        android:id="@+id/tanggal_lahir_account"
+                        android:layout_toEndOf="@id/jenis_kelamin_account">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tanggal Lahir"
+                            android:id="@+id/isi_tanggal_lahir_account"
+                            android:textSize="11dp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="center"
+                            android:padding="10dp" />
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/icon_tanggal_lahir"
+                            android:layout_marginEnd="5dp"
+                            android:id="@+id/button_tanggal_lahir" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/kelamin_tanggal_account"
+                    android:orientation="vertical">
+                    <Button
+                        android:id="@+id/button_simpan_account"
+                        android:layout_width="225dp"
+                        android:layout_height="40dp"
+                        android:text="Simpan"
+                        android:textSize="12dp"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="35dp"
+                        android:backgroundTint="@color/green_login" />
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:layout_width="225dp"
+                android:layout_height="40dp"
+                android:text="Keluar"
+                android:textSize="12dp"
+                android:id="@+id/button_keluar_account"
+                android:fontFamily="@font/montserrat_bold"
+                android:backgroundTint="@color/green_login" />
+
+            <Button
+                android:layout_width="225dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:text="Hapus Akun"
+                android:textSize="12dp"
+                android:id="@+id/button_hapus_account"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/black"
+                android:layout_below="@id/button_keluar_account"
+                android:background="@drawable/bg_button_kembali_catat_kalkullasi" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</FrameLayout>
+>>>>>>> dev-zan

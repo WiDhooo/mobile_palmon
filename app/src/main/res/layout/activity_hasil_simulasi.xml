@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".hasil_simulasi"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/green_login"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/icon_kembali_hasil_simulasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_kembali" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/icon_kembali_hasil_simulasi"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Hasil Simulasi"
+            android:textColor="@color/kuning_login"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/header_layout"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Informasi Kebun"
+                android:fontFamily="@font/poppins_bold"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:paddingBottom="8dp" />
+
+            <!-- Detail Informasi Kebun -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Luas Lahan:"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="2 hektar"
+                        android:textSize="14dp"
+                        android:gravity="end"
+                        android:id="@+id/hasil_luas_lahan_simulasi"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:layout_weight="1"
+                        android:text="Lokasi:"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Sumatera Selatan"
+                        android:textSize="14dp"
+                        android:gravity="end"
+                        android:id="@+id/lokasi_hasil_simulasi"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:layout_weight="1"
+                        android:text="Jenis Tanah:"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Tanah Liat"
+                        android:id="@+id/jenis_tanah_simulasi"
+                        android:textSize="14dp"
+                        android:gravity="end"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Modal:"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Rp 10.000.000"
+                        android:textSize="14dp"
+                        android:gravity="end"
+                        android:id="@+id/modal_hasil_simulasi"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hasil Simulasi"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:paddingBottom="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rekomendasi Bibit"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="13dp">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Varietas A: Tahan terhadap penyakit dan cocok untuk tanah liat.\nVarietas B: Hasil tinggi, tetapi memerlukan perawatan intensif."
+                android:textSize="12dp"
+                android:paddingBottom="16dp"
+                android:id="@+id/rekomendasi_bibit"
+                android:fontFamily="@font/poppins_regular"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pupuk yang diperlukan"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="13dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jenis Pupuk"
+                android:textSize="12dp"
+                android:fontFamily="@font/poppins_medium">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pupuk Organik: 500 kg (dari kompos)\nPupuk Anorganik:\n• Urea: 100 kg (dosis 50 kg/hektar)\n• NPK: 200 kg (dosis 100 kg/hektar)"
+                android:textSize="12dp"
+                android:paddingBottom="16dp"
+                android:id="@+id/jenis_pupuk_simulasi"
+                android:fontFamily="@font/poppins_regular"/>
+
+            <!-- Waktu Aplikasi -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Waktu Aplikasi"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="13dp"
+                android:paddingBottom="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pupuk organik saat penanaman.\nPupuk anorganik diberikan setiap 3 bulan sekali."
+                android:textSize="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:paddingBottom="16dp"
+                android:id="@+id/waktu_aplikasi_hasil_simulasi"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Analisis Ekonomi"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="13dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Estimasi Biaya"
+                android:textSize="12dp">
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="12dp"
+                    android:text="Total biaya awal (bibit, pupuk, dan perawatan):">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/total_biaya_awal_hasil_analisis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="12dp"
+                    android:text="Rp 8.000.000">
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="12dp"
+                    android:text="Biaya operasional tahunan:">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/biaya_operasional_tahunan_hasil_analisis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="12dp"
+                    android:text="Rp 2.000.000">
+                </TextView>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="12dp"
+                android:text="Estimasi Pendapatan"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Estimasi hasil panen: "
+                    android:textSize="12dp"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/estimasi_hasil_panen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5 ton/hektar"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Harga jual: "
+                    android:textSize="12dp"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/harga_jual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rp 5.000.000 per ton"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total pendapatan: "
+                    android:textSize="12dp"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/total_pendapatan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rp 25.000.000 per tahun"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="13dp"
+                android:text="Proyeksi Keuntungan" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Keuntungan bersih per tahun: "
+                    android:textSize="12dp"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/keuntungan_bersih_per_tahun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rp 23.000.000"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_ubah_data_hasil_simulasi"
+                android:layout_width="321dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Ubah Data"
+                android:textColor="@color/green_login"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_button_kembali_catat_kalkullasi">
+            </Button>
+            
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
