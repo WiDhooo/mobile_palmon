@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".simulasi"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/green_login"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_kembali"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:id="@+id/icon_kembali_simulasi">
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Simulasi"
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/icon_kembali_simulasi"
+                android:textColor="@color/kuning_login"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="20dp">
+            </TextView>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Luas Lahan"
+                android:textSize="14dp"
+                android:fontFamily="@font/poppins_medium">
+            </TextView>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:hint="Masukkan Luas Lahan"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="13dp"
+                android:background="@drawable/edit_text_bg_kalkulasi"
+                android:padding="10dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/luas_lahan_simulasi">
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lokasi"
+                android:textSize="14dp"
+                android:fontFamily="@font/poppins_medium">
+            </TextView>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:hint="Masukkan Lokasi"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="13dp"
+                android:background="@drawable/edit_text_bg_kalkulasi"
+                android:padding="10dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/lokasi_simulasi">
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jenis Tanah"
+                android:textSize="14dp"
+                android:fontFamily="@font/poppins_medium">
+            </TextView>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:hint="Masukkan Jenis Tanah"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="13dp"
+                android:background="@drawable/edit_text_bg_kalkulasi"
+                android:padding="10dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/jenis_tanah_simulasi">
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modal (Rp)"
+                android:textSize="14dp"
+                android:fontFamily="@font/poppins_medium">
+            </TextView>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:hint="Masukkan Modal"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="13dp"
+                android:background="@drawable/edit_text_bg_kalkulasi"
+                android:padding="10dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/modal_simulasi">
+            </EditText>
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <Button
+            android:id="@+id/button_kembali_simulasi"
+            android:layout_width="154dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/bg_button_kembali_catat_kalkullasi"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Kembali"
+            android:textColor="@color/green_login"
+            android:textSize="15dp">
+        </Button>
+
+        <Button
+            android:id="@+id/button_mulai_simulasi"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/button_kembali_simulasi"
+            android:backgroundTint="@color/green_login"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Mulai Simulasi"
+            android:textSize="15dp">
+        </Button>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

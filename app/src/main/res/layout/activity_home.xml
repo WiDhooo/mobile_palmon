@@ -42,9 +42,11 @@
                 app:labelVisibilityMode="labeled"
                 app:elevation="100dp"
                 android:translationZ="8dp"
-                app:itemTextColor="@color/green_login"
-                app:itemIconTint="@color/green_login"/>
+                app:itemTextColor="@color/black"
+                app:itemIconTint="@color/black"/>
         </androidx.cardview.widget.CardView>>
     </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

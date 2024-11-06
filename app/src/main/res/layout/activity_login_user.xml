@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login_user">
+    tools:context=".login_user"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"

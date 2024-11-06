@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/klik_artikel_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/author_tittle_image_artikel_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/author_tittle_artikel_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                                <ImageView
+                                    android:id="@+id/profile_author_artikel_1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/icon_author_artikel_1"
+                                    android:layout_gravity="center">
+                                </ImageView>
+
+                                <TextView
+                                    android:id="@+id/nama_author_artikel_1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:textSize="14dp"
+                                    android:text="Ahmad"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="2dp">
+                                </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="179dp"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/judul_artikel_page_1"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_bold"
+                                android:textSize="18dp"
+                                android:text="Keberlanjutan dalam Pertanian Sawit: Tantangan..">
+                            </TextView>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/image_artikel_1"
+                        android:layout_marginStart="40dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/image_artikel_1"
+                        android:layout_toEndOf="@+id/author_tittle_artikel_1">
+                    </ImageView>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/waktu_upload_ic_titik_tiga_artikel_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/author_tittle_image_artikel_1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/waktu_upload_artikel_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="12sp"
+                        android:textColor="@color/grey"
+                        android:text="17 hours ago" />
+
+                    <ImageView
+                        android:id="@+id/icon_titik_tiga_artikel_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_titik_tiga_artikel"
+                        android:layout_gravity="end" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/deskripsi_artikel_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="14dp"
+                    android:text="Industri sawit merupakan salah satu sektor pertanian yang paling penting di Indonesia,.."
+                    android:layout_below="@id/waktu_upload_ic_titik_tiga_artikel_1">
+                </TextView>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
