@@ -6,17 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 public class KalkulasiAdapter extends RecyclerView.Adapter<KalkulasiAdapter.ViewHolder> {
     private Context context;
     private List<Kalkulasi> kalkulasiList;
+    private String userId;  // Menambahkan userId
 
-    public KalkulasiAdapter(Context context, List<Kalkulasi> kalkulasiList) {
+    // Menambahkan userId ke constructor
+    public KalkulasiAdapter(Context context, List<Kalkulasi> kalkulasiList, String userId) {
         this.context = context;
         this.kalkulasiList = kalkulasiList;
+        this.userId = userId;  // Menyimpan userId
     }
 
     @NonNull
@@ -34,15 +39,13 @@ public class KalkulasiAdapter extends RecyclerView.Adapter<KalkulasiAdapter.View
         holder.totalPendapatan.setText(String.format("Rp. %,d", (int) kalkulasi.getTotalPendapatan()));
         holder.totalPengeluaran.setText(String.format("Rp. %,d", (int) kalkulasi.getTotalPengeluaran()));
 
-        // Set listener untuk tombol hasil_button
-        holder.hasilButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Panggil activity hasil_kalkulasi dan kirim ID dari kalkulasi
-                Intent intent = new Intent(context, hasil_kalkulasi.class);
-                intent.putExtra("KALKULASI_ID", kalkulasi.getId()); // Pastikan Anda memiliki method getId() di class Kalkulasi
-                context.startActivity(intent);
-            }
+        // Set listener untuk tombol detail
+        holder.hasilButton.setOnClickListener(v -> {
+            // Panggil activity hasil_kalkulasi dan kirim ID kalkulasi serta userId
+            Intent intent = new Intent(context, hasil_kalkulasi.class);
+            intent.putExtra("KALKULASI_ID", kalkulasi.getId());  // Mengirim ID kalkulasi
+            intent.putExtra("USER_ID", userId);  // Mengirim userId
+            context.startActivity(intent);
         });
     }
 
@@ -60,7 +63,7 @@ public class KalkulasiAdapter extends RecyclerView.Adapter<KalkulasiAdapter.View
             totalHasilBersih = itemView.findViewById(R.id.total_hasil_bersih);
             totalPendapatan = itemView.findViewById(R.id.total_pendapatan);
             totalPengeluaran = itemView.findViewById(R.id.total_pengeluaran);
-            hasilButton = itemView.findViewById(R.id.hasil_button); // Inisialisasi hasilButton
+            hasilButton = itemView.findViewById(R.id.hasil_button);
         }
     }
 }
