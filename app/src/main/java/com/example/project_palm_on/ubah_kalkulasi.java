@@ -27,6 +27,7 @@ public class ubah_kalkulasi extends AppCompatActivity {
             upahPanenEditText, biayaTransportasiEditText, biayaLainnyaEditText;
     private Button buttonSimpanPerubahan, buttonKembali;
     private String kalkulasiId;
+    private String userId; // Variabel userId diambil dari Intent
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,8 @@ public class ubah_kalkulasi extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Inisialisasi EditText
         tglPanenEditText = findViewById(R.id.tgl_panen_kalkulasi_ubah);
         hargaTBSEditText = findViewById(R.id.harga_tbs_kalkulasi_ubah);
         beratTotalTBSEditText = findViewById(R.id.berat_total_tbs_kalkulasi_ubah);
@@ -48,6 +51,7 @@ public class ubah_kalkulasi extends AppCompatActivity {
 
         // Ambil data dari Intent
         kalkulasiId = getIntent().getStringExtra("KALKULASI_ID");
+        userId = getIntent().getStringExtra("USER_ID"); // Ambil user_id dari Intent
         String tglPanen = getIntent().getStringExtra("tgl_panen");
         String hargaTbs = getIntent().getStringExtra("harga_tbs");
         String beratTotalTbs = getIntent().getStringExtra("berat_total_tbs");
@@ -56,6 +60,7 @@ public class ubah_kalkulasi extends AppCompatActivity {
         String biayaTransportasi = getIntent().getStringExtra("biaya_transportasi");
         String biayaLainnya = getIntent().getStringExtra("biaya_lainnya");
 
+        // Set data ke EditText
         tglPanenEditText.setText(tglPanen);
         hargaTBSEditText.setText(hargaTbs);
         beratTotalTBSEditText.setText(beratTotalTbs);
@@ -75,37 +80,53 @@ public class ubah_kalkulasi extends AppCompatActivity {
         buttonKembali.setOnClickListener(v -> finish());
     }
 
-private void updateKalkulasi() {
-    String url = Constants.URL_KALKULASI + "/" + kalkulasiId;
+    private void updateKalkulasi() {
+        if (userId == null || kalkulasiId == null) {
+            Toast.makeText(this, "User ID atau Kalkulasi ID tidak ditemukan", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-    JSONObject jsonBody = new JSONObject();
-    try {
-        jsonBody.put("tgl_panen", tglPanenEditText.getText().toString());
-        jsonBody.put("harga_tbs", Double.parseDouble(hargaTBSEditText.getText().toString()));
-        jsonBody.put("berat_total_tbs", Double.parseDouble(beratTotalTBSEditText.getText().toString()));
-        jsonBody.put("potongan_timbangan", Double.parseDouble(potonganTimbanganEditText.getText().toString()));
-        jsonBody.put("upah_panen", Double.parseDouble(upahPanenEditText.getText().toString()));
-        jsonBody.put("biaya_transportasi", Double.parseDouble(biayaTransportasiEditText.getText().toString()));
-        jsonBody.put("biaya_lainnya", Double.parseDouble(biayaLainnyaEditText.getText().toString()));
+        String url = Constants.URL_KALKULASI + "/" + userId + "/" + kalkulasiId;
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonBody,
-                response -> {
-                    Toast.makeText(ubah_kalkulasi.this, "Data berhasil diupdate", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(ubah_kalkulasi.this, hasil_kalkulasi.class); // Kembali ke activity sebelumnya
-                    i.putExtra("KALKULASI_ID", kalkulasiId);
-                    startActivity(i);
-                },
-                error -> {
-                    Log.e("API_ERROR", error.toString());
-                    Toast.makeText(ubah_kalkulasi.this, "Gagal mengupdate data", Toast.LENGTH_SHORT).show();
-                }
-        );
+        JSONObject jsonBody = new JSONObject();
+        try {
+            // Memasukkan data ke dalam JSONObject
+            jsonBody.put("tgl_panen", tglPanenEditText.getText().toString());
+            jsonBody.put("harga_tbs", Double.parseDouble(hargaTBSEditText.getText().toString()));
+            jsonBody.put("berat_total_tbs", Double.parseDouble(beratTotalTBSEditText.getText().toString()));
+            jsonBody.put("potongan_timbangan", Double.parseDouble(potonganTimbanganEditText.getText().toString()));
+            jsonBody.put("upah_panen", Double.parseDouble(upahPanenEditText.getText().toString()));
+            jsonBody.put("biaya_transportasi", Double.parseDouble(biayaTransportasiEditText.getText().toString()));
+            jsonBody.put("biaya_lainnya", Double.parseDouble(biayaLainnyaEditText.getText().toString()));
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonObjectRequest);
-    } catch (JSONException e) {
-        e.printStackTrace();
-        Toast.makeText(this, "Gagal membuat JSON", Toast.LENGTH_SHORT).show();
+            // Membuat request JSON untuk memperbarui data
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonBody,
+                    response -> {
+                        // Tindakan setelah berhasil memperbarui data
+                        Toast.makeText(ubah_kalkulasi.this, "Data berhasil diupdate", Toast.LENGTH_SHORT).show();
+                        setResult(RESULT_OK); // Memberi tanda sukses ke hasil_kalkulasi
+                        Intent intent = new Intent(ubah_kalkulasi.this, hasil_kalkulasi.class);
+                        intent.putExtra("KALKULASI_ID", kalkulasiId);  // Mengirim ID kalkulasi
+                        intent.putExtra("USER_ID", userId);  // Mengirim userId
+                        startActivity(intent);
+                    },
+                    error -> {
+                        // Tindakan ketika ada error
+                        Log.e("API_ERROR", error.toString());
+                        Toast.makeText(ubah_kalkulasi.this, "Gagal mengupdate data", Toast.LENGTH_SHORT).show();
+                    }
+            );
+
+            // Menambahkan request ke request queue
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(jsonObjectRequest);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Gagal membuat JSON", Toast.LENGTH_SHORT).show();
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Input tidak valid, pastikan angka dimasukkan dengan benar", Toast.LENGTH_SHORT).show();
+        }
     }
-}
 }

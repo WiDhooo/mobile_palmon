@@ -3,12 +3,18 @@ package com.example.project_palm_on;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -17,13 +23,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,13 +40,6 @@ public class catat_kalkulasi extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catat_kalkulasi);
-
-        // Optional: Apply edge-to-edge insets
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         tglPanen = findViewById(R.id.tgl_panen_kalkulasi);
         hargaTbs = findViewById(R.id.harga_tbs_kalkulasi);
@@ -68,65 +60,48 @@ public class catat_kalkulasi extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.button_hitung_catat_kalkulasi) {
-            final Dialog dialog = new Dialog(catat_kalkulasi.this);
-            dialog.setContentView(R.layout.dv_hitungkalkulasi_confirm);
-            if (dialog.getWindow() != null) {
-                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent); // Set background transparan
-            }
-            dialog.show();
-
-            Button confirm = dialog.findViewById(R.id.btn_ya_kalkulasi);
-            confirm.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green_login)));
-            Button back = dialog.findViewById(R.id.btn_kembali_kalkulasi);
-
-            confirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    hitungHasil();
-                    dialog.dismiss();
-                    Intent i = new Intent(catat_kalkulasi.this, kalkulasi_page.class);
-                    startActivity(i);
-                }
-            });
-
-            back.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
-
+            showConfirmationDialog(true);
         } else if (view.getId() == R.id.button_kembali_catat_kalkulasi) {
-            final Dialog dialog = new Dialog(catat_kalkulasi.this);
-            dialog.setContentView(R.layout.dv_hitungkalkulasi_cancel);
-            if (dialog.getWindow() != null) {
-                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent); // Set background transparan
-            }
-            dialog.show();
-
-            Button confirm = dialog.findViewById(R.id.btn_lanjutkan_kalkulasi);
-            confirm.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green_login)));
-            Button back = dialog.findViewById(R.id.btn_batal_kalkulasi);
-
-            confirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
-
-            back.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                    Intent i = new Intent(catat_kalkulasi.this, kalkulasi_page.class);
-                    startActivity(i);
-                }
-            });
+            showConfirmationDialog(false);
         }
     }
 
+    private void showConfirmationDialog(boolean isCalculateAction) {
+        final Dialog dialog = new Dialog(catat_kalkulasi.this);
+        dialog.setContentView(isCalculateAction ? R.layout.dv_hitungkalkulasi_confirm : R.layout.dv_hitungkalkulasi_cancel);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent); // Set transparent background
+        }
+        dialog.show();
+
+        Button confirmButton = dialog.findViewById(isCalculateAction ? R.id.btn_ya_kalkulasi : R.id.btn_lanjutkan_kalkulasi);
+        Button cancelButton = dialog.findViewById(isCalculateAction ? R.id.btn_kembali_kalkulasi : R.id.btn_batal_kalkulasi);
+
+        confirmButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green_login)));
+        confirmButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (isCalculateAction) {
+                hitungHasil();
+                Intent intent = new Intent(catat_kalkulasi.this, kalkulasi_page.class);
+                startActivity(intent);
+            } else {
+                finish();  // Ends the activity when back is confirmed
+            }
+        });
+
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
+    }
+
     private void hitungHasil() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String userId = sharedPreferences.getString("user_id", null);
+
+        if (userId == null) {
+            Toast.makeText(this, "User ID tidak ditemukan. Pastikan sudah login.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         String tglpanen = tglPanen.getText().toString().trim();
         String hargatbs = hargaTbs.getText().toString().trim();
         String berattotaltbs = beratTotalTbs.getText().toString().trim();
@@ -139,27 +114,21 @@ public class catat_kalkulasi extends AppCompatActivity implements View.OnClickLi
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constants.URL_KALKULASI,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                Constants.URL_KALKULASI + "/" + userId,
+                response -> {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.hide();
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                error -> {
+                    progressDialog.hide();
+                    Toast.makeText(getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
                 }) {
-            @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();

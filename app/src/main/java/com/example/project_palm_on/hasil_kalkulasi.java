@@ -13,22 +13,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.text.DecimalFormat;
 
 public class hasil_kalkulasi extends AppCompatActivity {
     private TextView tanggalPanenValue, totalHasilBersihValue, totalPendapatanValue,
             beratKotorValue, hargaTBSValue, potonganTaraValue, beratBersihValue,
             totalPengeluaranValue, biayaUpahPanenValue, biayaTransportasiValue,
             biayaLainnyaValue;
-    private Button buttonHapus, buttonUbahData, buttonSimpan;
+    private Button buttonHapus, buttonUbahData;
     private ImageView iconKembali;
+    private double potonganTaraPersentase, upahPanen;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,31 +52,58 @@ public class hasil_kalkulasi extends AppCompatActivity {
         // Inisialisasi Button
         buttonHapus = findViewById(R.id.button_hapus_kalkulasi);
         buttonUbahData = findViewById(R.id.button_ubah_data_kalkulasi);
-//        buttonSimpan = findViewById(R.id.button_simpan_kalkulasi);
         iconKembali = findViewById(R.id.icon_kembali_kalkulasi);
 
-        // Ambil ID dari Intent dan panggil fungsi untuk mengambil kalkulasi
+        // Mengambil user_id dari Intent
+        userId = getIntent().getStringExtra("USER_ID");  // Ambil userId yang diteruskan dari KalkulasiAdapter
+        if (userId == null) {
+            Toast.makeText(this, "User ID tidak ditemukan. Silakan login.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Ambil ID kalkulasi dari Intent
         String kalkulasiId = getIntent().getStringExtra("KALKULASI_ID");
         if (kalkulasiId != null) {
-            fetchKalkulasi(kalkulasiId);
-            buttonHapus.setOnClickListener(v -> deleteKalkulasi(kalkulasiId));
+            fetchKalkulasi(kalkulasiId, userId);
+            buttonHapus.setOnClickListener(v -> deleteKalkulasi(kalkulasiId, userId));
         } else {
             Toast.makeText(this, "ID kalkulasi tidak ditemukan", Toast.LENGTH_SHORT).show();
         }
 
         // Aksi untuk kembali
-        iconKembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(hasil_kalkulasi.this, kalkulasi_page.class);
-                startActivity(i);
-            }
+        iconKembali.setOnClickListener(view -> {
+            Intent i = new Intent(hasil_kalkulasi.this, kalkulasi_page.class);
+            startActivity(i);
         });
 
+        // Aksi untuk tombol Ubah Data
+        buttonUbahData.setOnClickListener(v -> {
+            // Tidak perlu mendeklarasikan kalkulasiId lagi di sini, langsung gunakan yang sudah ada
+            if (kalkulasiId != null && userId != null) {
+                // Membuat Intent untuk berpindah ke activity ubah_kalkulasi
+                Intent intent = new Intent(hasil_kalkulasi.this, ubah_kalkulasi.class);
+                intent.putExtra("KALKULASI_ID", kalkulasiId); // Mengirim ID kalkulasi
+                intent.putExtra("USER_ID", userId); // Mengirim ID pengguna
+
+                // Meneruskan data kalkulasi yang diperlukan ke activity ubah_kalkulasi
+                intent.putExtra("tgl_panen", tanggalPanenValue.getText().toString());
+                intent.putExtra("harga_tbs", hargaTBSValue.getText().toString().replace("Rp. ", "").replace(",", "").replace(" /kg", "").replace(".00", ""));
+                intent.putExtra("berat_total_tbs", beratKotorValue.getText().toString().replace(" Kg", ""));
+                intent.putExtra("potongan_timbangan", String.valueOf(potonganTaraPersentase).replace(".0", ""));
+                intent.putExtra("upah_panen", String.valueOf(upahPanen).replace("Rp. ", "").replace(",", "").replace(".0", ""));
+                intent.putExtra("biaya_transportasi", biayaTransportasiValue.getText().toString().replace("Rp. ", "").replace(",", "").replace(".00", ""));
+                intent.putExtra("biaya_lainnya", biayaLainnyaValue.getText().toString().replace("Rp. ", "").replace(",", "").replace(".00", ""));
+
+                // Memulai activity ubah_kalkulasi
+                startActivity(intent);
+            } else {
+                Toast.makeText(hasil_kalkulasi.this, "ID kalkulasi atau User ID tidak ditemukan", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void deleteKalkulasi(String id) {
-        String url = Constants.URL_KALKULASI + "/" + id;
+    private void deleteKalkulasi(String id, String userId) {
+        String url = Constants.URL_KALKULASI + "/" + userId + "/" + id;
 
         StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,
                 response -> {
@@ -96,71 +124,59 @@ public class hasil_kalkulasi extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void fetchKalkulasi(String id) {
-        String url = Constants.URL_KALKULASI + "/" + id;
+    private void fetchKalkulasi(String id, String userId) {
+        String url = Constants.URL_KALKULASI + "/" + userId + "/" + id;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // Ambil nilai berat total TBS dan upah panen
-                        double beratTotalTBS = response.optDouble("berat_total_tbs", 0);
-                        double upahPanen = response.optDouble("upah_panen", 0);
-                        double potonganTaraPersentase = response.optDouble("potongan_timbangan", 0);
+                response -> {
+                    // Ambil nilai-nilai yang diperlukan dari JSON API
+                    double beratTotalTBS = response.optDouble("berat_total_tbs", 0); // Misalnya, berat total TBS
+                    upahPanen = response.optDouble("upah_panen", 0); // Misalnya, upah per Kg TBS
+                    potonganTaraPersentase = response.optDouble("potongan_timbangan", 0); // Potongan tara dalam persen
 
-                        // Hitung total upah panen yang dikali berat total TBS
-                        double totalUpahPanen = beratTotalTBS * upahPanen;
-                        double potonganTara = beratTotalTBS * (potonganTaraPersentase / 100);
+                    // Hitung total upah panen berdasarkan berat TBS
+                    double totalUpahPanen = beratTotalTBS * upahPanen;
 
-                        // Format berat dengan Kg
-                        String beratKotor = String.format("%.0f Kg", response.optDouble("berat_total_tbs", 0));
-                        String beratBersih = String.format("%.0f Kg", response.optDouble("berat_bersih", 0));
+                    // Hitung potongan tara berdasarkan persentase
+                    double potonganTara = beratTotalTBS * (potonganTaraPersentase / 100);
 
-                        // Format angka dengan Rp. di depan
-                        String totalPendapatan = String.format("Rp. %.0f", response.optDouble("total_pendapatan", 0));
-                        String totalPengeluaran = String.format("Rp. %.0f", response.optDouble("total_pengeluaran", 0));
-                        String upahTransportasi = String.format("Rp. %.0f", response.optDouble("biaya_transportasi", 0));
-                        String biayaLainnya = String.format("Rp. %.0f", response.optDouble("biaya_lainnya", 0));
-                        String hargaTbs = String.format("Rp. %.0f", response.optDouble("harga_tbs", 0));
+                    // Format berat dalam Kg
+                    String beratKotor = String.format("%.0f Kg", beratTotalTBS);
+                    String beratBersih = String.format("%.0f Kg", response.optDouble("berat_bersih", 0));
 
-                        // Set nilai ke TextView
-                        tanggalPanenValue.setText(response.optString("tgl_panen", "-"));
-                        totalPendapatanValue.setText(totalPendapatan);
-                        totalHasilBersihValue.setText(String.valueOf(response.optDouble("total_hasil_bersih", 0)));
-                        beratKotorValue.setText(beratKotor);
-                        hargaTBSValue.setText(hargaTbs);
-                        potonganTaraValue.setText(String.format("%.0f Kg", potonganTara));
-                        beratBersihValue.setText(beratBersih);
-                        totalPengeluaranValue.setText(totalPengeluaran);
-                        biayaUpahPanenValue.setText(String.format("Rp. %.0f", totalUpahPanen));
-                        biayaTransportasiValue.setText(upahTransportasi);
-                        biayaLainnyaValue.setText(biayaLainnya);
+                    // Format angka dengan Rp. di depan
+                    String totalPendapatan = formatAngka(response.optDouble("total_pendapatan", 0));
+                    String totalPengeluaran = formatAngka(response.optDouble("total_pengeluaran", 0));
 
-                        buttonUbahData.setOnClickListener(v -> {
-                            Intent intent = new Intent(hasil_kalkulasi.this, ubah_kalkulasi.class);
-                            intent.putExtra("KALKULASI_ID", id);
-                            intent.putExtra("tgl_panen", tanggalPanenValue.getText().toString());
-                            intent.putExtra("harga_tbs", hargaTBSValue.getText().toString().replace("Rp. ", ""));
-                            intent.putExtra("berat_total_tbs", beratKotorValue.getText().toString().replace(" Kg", ""));
-                            intent.putExtra("potongan_timbangan", String.valueOf(potonganTaraPersentase).replace(".0", ""));
-                            intent.putExtra("upah_panen", String.valueOf(upahPanen).replace(".0", ""));
-                            intent.putExtra("biaya_transportasi", biayaTransportasiValue.getText().toString().replace("Rp. ", ""));
-                            intent.putExtra("biaya_lainnya", biayaLainnyaValue.getText().toString().replace("Rp. ", ""));
-                            startActivity(intent);
-                        });
-                    }
+                    // Menampilkan data di UI
+                    tanggalPanenValue.setText(response.optString("tgl_panen"));
+                    beratKotorValue.setText(beratKotor);
+                    totalHasilBersihValue.setText(formatAngka(response.optDouble("total_hasil_bersih", 0)));
+                    hargaTBSValue.setText(formatAngka(response.optDouble("harga_tbs", 0)) + " /kg");
+                    potonganTaraValue.setText(String.format("%.0f Kg", potonganTara));
+                    beratBersihValue.setText(beratBersih);
+                    totalPendapatanValue.setText(totalPendapatan);
+                    totalPengeluaranValue.setText(totalPengeluaran);
+                    biayaUpahPanenValue.setText(formatAngka(totalUpahPanen));
+                    biayaTransportasiValue.setText(formatAngka(response.optDouble("biaya_transportasi", 0)));
+                    biayaLainnyaValue.setText(formatAngka(response.optDouble("biaya_lainnya", 0)));
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("API_ERROR", error.toString());
-                        Toast.makeText(hasil_kalkulasi.this, "Gagal mengambil data", Toast.LENGTH_SHORT).show();
-                    }
+                error -> {
+                    // Tindakan ketika ada error
+                    Log.e("ERROR", error.toString());
+                    Toast.makeText(hasil_kalkulasi.this, "Gagal mengambil data", Toast.LENGTH_SHORT).show();
                 }
         );
 
+        // Menambahkan request ke queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
+    }
+
+    // Membuat method untuk memformat angka dengan pemisah ribuan
+    private String formatAngka(double angka) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.00");  // Pemisah ribuan dengan titik
+        return "Rp. " + decimalFormat.format(angka);  // Format angka dengan "Rp."
     }
 }
