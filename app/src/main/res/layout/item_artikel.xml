@@ -36,25 +36,29 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
-                                <ImageView
-                                    android:id="@+id/profile_author_artikel_1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/icon_author_artikel_1"
-                                    android:layout_gravity="center">
-                                </ImageView>
 
-                                <TextView
-                                    android:id="@+id/nama_author_artikel_1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/poppins_regular"
-                                    android:textSize="14dp"
-                                    android:text="Ahmad"
-                                    android:layout_gravity="center"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginTop="2dp">
-                                </TextView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textSize="14dp"
+                                android:text="Penulis:"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="2dp">
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/nama_author_artikel_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textSize="14dp"
+                                android:text="Ahmad"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="2dp">
+                            </TextView>
                         </LinearLayout>
 
                         <LinearLayout

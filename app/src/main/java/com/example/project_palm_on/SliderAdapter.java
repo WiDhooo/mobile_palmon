@@ -1,6 +1,7 @@
 package com.example.project_palm_on;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderViewHolder> {
@@ -31,8 +35,22 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
         SliderItem item = sliderItems.get(position);
         holder.textViewTitle.setText(item.getTitle());
-        holder.textViewDate.setText(item.getDate());
-        holder.imageViewThumbnail.setImageResource(item.getImageResourceId());
+        String timeAgo = TimeUtils.getTimeAgo(item.getTimeUpload());
+        holder.textViewDate.setText(timeAgo);
+
+        // Use Glide to load the image URL into the ImageView
+        Glide.with(context).load(item.getImageURL()).into(holder.imageViewThumbnail);
+
+        // Add click listener to open 'isi_artikel' when slider item is clicked
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, isi_artikel.class);
+            intent.putExtra("author", item.getAuthor());
+            intent.putExtra("title", item.getTitle());
+            intent.putExtra("content", item.getDescription());
+            intent.putExtra("time", item.getTimeUpload());
+            intent.putExtra("image", item.getImageURL());
+            context.startActivity(intent);
+        });
     }
 
     @Override

@@ -1,104 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.widget.ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".isi_artikel"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:fillViewport="true">
 
-    <ImageView
-        android:id="@+id/article_image"
-        android:layout_width="0dp"
-        android:layout_height="353dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/image_isi_artikel_1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
+            android:id="@+id/article_image"
+            android:layout_width="0dp"
+            android:layout_height="353dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_isi_artikel_1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/btn_back_isi_artikel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_kembali_isi_artikel"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp">
+            </ImageView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/article_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_kembali_isi_artikel"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="30dp">
-        </ImageView>
-    </LinearLayout>
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Keberlanjutan dalam Pertanian Sawit: Tantangan dan Peluang"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/article_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/article_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="20dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Keberlanjutan dalam Pertanian Sawit: Tantangan dan Peluang"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/article_image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Informasi Penulis dan Waktu -->
-    <LinearLayout
-        android:id="@+id/author_info"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/article_image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/icon_author_artikel_1"
-            android:layout_marginEnd="8dp" />
-
-        <TextView
-            android:id="@+id/author_name"
-            android:layout_width="wrap_content"
+        <!-- Informasi Penulis dan Waktu -->
+        <LinearLayout
+            android:id="@+id/author_info"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/article_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Penulis: "
+                android:textSize="14sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/author_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Ahmad"
+                android:textSize="14sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/upload_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="17 hours ago"
+                android:textSize="12sp"
+                android:textColor="@color/grey" />
+        </LinearLayout>
+
+        <!-- Konten Artikel -->
+        <TextView
+            android:id="@+id/article_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Ahmad"
+            android:lineSpacingExtra="4dp"
             android:textSize="14sp"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:text="Pendahuluan\nIndustri sawit merupakan salah satu sektor pertanian yang paling penting di Indonesia, memberikan kontribusi signifikan terhadap perekonomian negara. Menurut Badan Pusat Statistik (BPS), pada tahun 2022, Indonesia menghasilkan lebih dari 40 juta ton minyak sawit..."
+            app:layout_constraintTop_toBottomOf="@id/author_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/upload_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="17 hours ago"
-            android:textSize="12sp"
-            android:textColor="@color/grey" />
-    </LinearLayout>
-
-    <!-- Konten Artikel -->
-    <TextView
-        android:id="@+id/article_content"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/poppins_regular"
-        android:lineSpacingExtra="4dp"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:text="Pendahuluan\nIndustri sawit merupakan salah satu sektor pertanian yang paling penting di Indonesia, memberikan kontribusi signifikan terhadap perekonomian negara. Menurut Badan Pusat Statistik (BPS), pada tahun 2022, Indonesia menghasilkan lebih dari 40 juta ton minyak sawit..."
-        app:layout_constraintTop_toBottomOf="@id/author_info"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</android.widget.ScrollView>

@@ -5,16 +5,14 @@ public class item_artikel {
     private String title;
     private String description;
     private String timeUpload;
-    private int imageResourceId;
-    private int iconResourceId;
+    private String imageURL;
 
-    public item_artikel(String author, String title, String description, String timeUpload, int imageResourceId, int iconResourceId) {
+    public item_artikel(String author, String title, String description, String timeUpload, String imageURL) {
         this.author = author;
         this.title = title;
         this.description = description;
         this.timeUpload = timeUpload;
-        this.imageResourceId = imageResourceId;
-        this.iconResourceId = iconResourceId;
+        this.imageURL = imageURL;
     }
 
     public String getAuthor() {
@@ -33,11 +31,8 @@ public class item_artikel {
         return timeUpload;
     }
 
-    public int getImageResourceId() {
-        return imageResourceId;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public int getIconResourceId() {
-        return iconResourceId;
-    }
 }
