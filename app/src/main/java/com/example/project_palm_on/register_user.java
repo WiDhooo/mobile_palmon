@@ -50,8 +50,6 @@ public class register_user extends AppCompatActivity {
 
         // Tombol daftar: lakukan validasi dan registrasi
         registerButton.setOnClickListener(v -> registerUser());
-        Intent i = new Intent(register_user.this, login_user.class);
-        startActivity(i);
     }
 
     private void registerUser() {
