@@ -11,6 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonArrayRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,48 +78,75 @@ public class home_fragment extends Fragment {
         recyclerViewSlider.setLayoutManager(layoutManager);
 
         sliderItems = new ArrayList<>();
-        sliderItems.add(new SliderItem("Keberlanjutan dalam Pertanian Sawit: Tantangan..", "15/10/24", R.drawable.carousel_sawit_1));
-        sliderItems.add(new SliderItem("Judul Artikel Lain", "15/10/24", R.drawable.carousel_sawit_1));
+        getSliderData();  // Fetch the slider data from the API
 
+        // Set up the adapter for the slider
         sliderAdapter = new SliderAdapter(getActivity(), sliderItems);
         recyclerViewSlider.setAdapter(sliderAdapter);
 
-        // fungsi tombol kalkulasi
-        icon_kalkulasi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), kalkulasi_page.class);
-                startActivity(i);
-            }
+        // Other button actions
+        icon_kalkulasi.setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), kalkulasi_page.class);
+            startActivity(i);
         });
 
-        // fungsi tombol simulasi
-        icon_simulasi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), simulasi.class);
-                startActivity(i);
-            }
+        icon_simulasi.setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), simulasi.class);
+            startActivity(i);
         });
 
-        // fungsi tombol guide
-        icon_guide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), guide.class);
-                startActivity(i);
-            }
+        icon_guide.setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), guide.class);
+            startActivity(i);
         });
 
-        // Mengarah ke halaman artikel
-        icon_artikel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), artikel.class);
-                startActivity(i);
-            }
+        icon_artikel.setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), artikel.class);
+            startActivity(i);
         });
 
         return view;
+    }
+
+    // Fetch slider data from API
+    private void getSliderData() {
+        String url = Constants.URL_ARTIKEL;  // Replace with your actual URL
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            // Loop through the API response and add slider items
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject sliderObject = response.getJSONObject(i);
+
+                                String title = sliderObject.getString("judul");
+                                String date = sliderObject.getString("created_at");
+                                String description = sliderObject.getString("isi");  // Image URL from API
+                                String author = sliderObject.getString("nama_pembuat");
+                                String imageURL = sliderObject.getString("gambar");
+
+                                // Add the slider item to the list
+                                sliderItems.add(new SliderItem(author, title, description, date, imageURL));
+                            }
+
+                            // Notify the adapter that the data has changed
+                            sliderAdapter.notifyDataSetChanged();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getActivity(), "Error parsing slider data", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                error -> Toast.makeText(getActivity(), "Error fetching slider data", Toast.LENGTH_SHORT).show()
+        );
+
+        // Add the request to the request queue
+        VolleySingleton.getInstance(getActivity()).addToRequestQueue(jsonArrayRequest);
     }
 }

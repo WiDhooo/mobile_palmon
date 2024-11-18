@@ -1,29 +1,50 @@
 package com.example.project_palm_on;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 public class isi_guide extends AppCompatActivity {
-    ImageView ic_kembali_guide;
+
+    private TextView titleTextView, descriptionTextView;
+    private ImageView guideImageView, backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_isi_guide);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        ic_kembali_guide = findViewById(R.id.icon_kembali_isi_guide_guide);
+        // Referensi ke UI
+        titleTextView = findViewById(R.id.guide_title);
+        descriptionTextView = findViewById(R.id.guide_content);
+        guideImageView = findViewById(R.id.guide_image);
+        backButton = findViewById(R.id.icon_kembali_isi_guide_guide);
+
+        // Ambil data dari intent
+        String title = getIntent().getStringExtra("title");
+        String imageUrl = getIntent().getStringExtra("image");
+        String description = getIntent().getStringExtra("description");
+
+        // Set data ke UI
+        titleTextView.setText(title);
+        descriptionTextView.setText(description);
+
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(this)
+                    .load(imageUrl)
+                    .apply(new RequestOptions().placeholder(R.drawable.carousel_sawit_1))
+                    .error(R.drawable.carousel_sawit_1)
+                    .into(guideImageView);
+        } else {
+            guideImageView.setImageResource(R.drawable.carousel_sawit_1);
+        }
+
+        // Mengatur button kembali
+        backButton.setOnClickListener(v -> onBackPressed());
     }
 }
