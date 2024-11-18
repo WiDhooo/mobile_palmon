@@ -44,6 +44,7 @@ public class home extends AppCompatActivity {
 //            } else if (item.getItemId() == R.id.nav_history) {
 //                replaceFragment(new history());
 //            }
+
             else if (item.getItemId() == R.id.nav_akun) {
                 replaceFragment(new account());
             }
