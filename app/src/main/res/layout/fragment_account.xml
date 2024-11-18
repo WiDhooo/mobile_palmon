@@ -65,14 +65,14 @@
                         android:id="@+id/profile_image"
                         android:src="@drawable/carousel_sawit_1" />
 
-                    <TextView
+                <!--    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Ubah Foto"
                         android:textColor="@color/grey_ubah_account"
                         android:gravity="center"
                         android:id="@+id/ubah_gambar_profile_account"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="10dp" /> -->
                 </LinearLayout>
 
                 <LinearLayout

@@ -57,8 +57,10 @@ public class artikel extends AppCompatActivity {
             startActivity(i);
         });
 
+        artikelList = new ArrayList<>();
 
-
+        getArtikelData();
+    }
     private void getArtikelData() {
         // URL API untuk mendapatkan data artikel
         String url = Constants.URL_ARTIKEL;  // Ganti dengan URL API yang sesuai

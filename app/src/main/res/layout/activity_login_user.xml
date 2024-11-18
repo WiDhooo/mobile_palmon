@@ -86,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/icon_password"
                 android:background="@android:color/transparent"
+                android:inputType="textPassword"
                 android:hint="Password"
                 android:padding="8dp"
                 android:textColor="#000"
