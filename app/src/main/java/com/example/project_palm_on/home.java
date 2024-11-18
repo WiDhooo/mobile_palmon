@@ -39,12 +39,20 @@ public class home extends AppCompatActivity {
             if (item.getItemId() == R.id.nav_home) {
                 replaceFragment(new home_fragment());
             }
+<<<<<<< HEAD
            // else if (item.getItemId() == R.id.nav_toko) {
             //    replaceFragment(new toko());
             //}
             //else if (item.getItemId() == R.id.nav_history) {
               //  replaceFragment(new history());
             //}
+=======
+//            else if (item.getItemId() == R.id.nav_toko) {
+//                replaceFragment(new toko());
+//            } else if (item.getItemId() == R.id.nav_history) {
+//                replaceFragment(new history());
+//            }
+>>>>>>> c111d86d125f1942bbf189868d84549fe1fb9d1c
             else if (item.getItemId() == R.id.nav_akun) {
                 replaceFragment(new account());
             }

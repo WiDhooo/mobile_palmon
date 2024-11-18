@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -27,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,15 +55,30 @@ public class catat_kalkulasi extends AppCompatActivity implements View.OnClickLi
 
         buttonHitung.setOnClickListener(this);
         buttonKembali.setOnClickListener(this);
+
+        // Tanggal Picker
+        tglPanen.setOnClickListener(v -> showDatePicker());
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.button_hitung_catat_kalkulasi) {
-            showConfirmationDialog(true);
+            if (validateInput()) {
+                showConfirmationDialog(true);
+            } else {
+                Toast.makeText(this, "Perbaiki input sebelum melanjutkan", Toast.LENGTH_SHORT).show();
+            }
         } else if (view.getId() == R.id.button_kembali_catat_kalkulasi) {
             showConfirmationDialog(false);
         }
+    }
+
+    private void showDatePicker() {
+        Calendar calendar = Calendar.getInstance();
+        new android.app.DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            String date = year + "-" + (month + 1) + "-" + dayOfMonth;
+            tglPanen.setText(date);
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     private void showConfirmationDialog(boolean isCalculateAction) {
@@ -71,7 +86,7 @@ public class catat_kalkulasi extends AppCompatActivity implements View.OnClickLi
         dialog.setContentView(isCalculateAction ? R.layout.dv_hitungkalkulasi_confirm : R.layout.dv_hitungkalkulasi_cancel);
 
         if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent); // Set transparent background
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
         dialog.show();
 
@@ -86,11 +101,60 @@ public class catat_kalkulasi extends AppCompatActivity implements View.OnClickLi
                 Intent intent = new Intent(catat_kalkulasi.this, kalkulasi_page.class);
                 startActivity(intent);
             } else {
-                finish();  // Ends the activity when back is confirmed
+                finish();
             }
         });
 
         cancelButton.setOnClickListener(v -> dialog.dismiss());
+    }
+
+    private boolean validateInput() {
+        boolean isValid = true;
+
+        String tglpanen = tglPanen.getText().toString().trim();
+        String hargatbs = hargaTbs.getText().toString().trim();
+        String berattotaltbs = beratTotalTbs.getText().toString().trim();
+        String potongantimbangan = potonganTimbangan.getText().toString().trim();
+        String upahpanen = upahPanen.getText().toString().trim();
+        String biayatransportasi = biayaTransportasi.getText().toString().trim();
+        String biayalainnya = biayaLainnya.getText().toString().trim();
+
+        if (tglpanen.isEmpty()) {
+            tglPanen.setError("Tanggal panen tidak boleh kosong");
+            isValid = false;
+        }
+
+        if (hargatbs.isEmpty() || !hargatbs.matches("\\d+(\\.\\d+)?")) {
+            hargaTbs.setError("Harga TBS harus berupa angka");
+            isValid = false;
+        }
+
+        if (berattotaltbs.isEmpty() || !berattotaltbs.matches("\\d+(\\.\\d+)?")) {
+            beratTotalTbs.setError("Berat total TBS harus berupa angka");
+            isValid = false;
+        }
+
+        if (potongantimbangan.isEmpty() || !potongantimbangan.matches("\\d+(\\.\\d+)?")) {
+            potonganTimbangan.setError("Potongan timbangan harus berupa angka");
+            isValid = false;
+        }
+
+        if (upahpanen.isEmpty() || !upahpanen.matches("\\d+(\\.\\d+)?")) {
+            upahPanen.setError("Upah panen harus berupa angka");
+            isValid = false;
+        }
+
+        if (biayatransportasi.isEmpty() || !biayatransportasi.matches("\\d+(\\.\\d+)?")) {
+            biayaTransportasi.setError("Biaya transportasi harus berupa angka");
+            isValid = false;
+        }
+
+        if (biayalainnya.isEmpty() || !biayalainnya.matches("\\d+(\\.\\d+)?")) {
+            biayaLainnya.setError("Biaya lainnya harus berupa angka");
+            isValid = false;
+        }
+
+        return isValid;
     }
 
     private void hitungHasil() {
@@ -122,7 +186,6 @@ public class catat_kalkulasi extends AppCompatActivity implements View.OnClickLi
                         Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
                     }
                 },
                 error -> {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -13,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class simulasi extends AppCompatActivity {
+    EditText editTextLuasLahan, editTextLokasi, editTextJenisTanah, editTextModal;
     Button btn_mulai_simulasi, btn_kembali_simulasi_home;
     ImageView icon_kembali_simulasi_home;
 
@@ -27,6 +29,10 @@ public class simulasi extends AppCompatActivity {
             return insets;
         });
 
+        editTextLuasLahan = findViewById(R.id.luas_lahan_simulasi);
+        editTextLokasi = findViewById(R.id.lokasi_simulasi);
+        editTextJenisTanah = findViewById(R.id.jenis_tanah_simulasi);
+        editTextModal = findViewById(R.id.modal_simulasi);
         btn_mulai_simulasi = findViewById(R.id.button_mulai_simulasi);
         btn_kembali_simulasi_home = findViewById(R.id.button_kembali_simulasi);
         icon_kembali_simulasi_home = findViewById(R.id.icon_kembali_simulasi);
@@ -35,7 +41,18 @@ public class simulasi extends AppCompatActivity {
         btn_mulai_simulasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Get input values
+                String luasLahan = editTextLuasLahan.getText().toString();
+                String lokasi = editTextLokasi.getText().toString();
+                String jenisTanah = editTextJenisTanah.getText().toString();
+                String modal = editTextModal.getText().toString();
+
+                // Create an Intent to pass the values to HasilSimulasiActivity
                 Intent i = new Intent(simulasi.this, hasil_simulasi.class);
+                i.putExtra("LUAS_LAHAN", luasLahan);
+                i.putExtra("LOKASI", lokasi);
+                i.putExtra("JENIS_TANAH", jenisTanah);
+                i.putExtra("MODAL", modal);
                 startActivity(i);
             }
         });
