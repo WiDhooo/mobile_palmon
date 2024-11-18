@@ -38,11 +38,13 @@ public class home extends AppCompatActivity {
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.nav_home) {
                 replaceFragment(new home_fragment());
-            } else if (item.getItemId() == R.id.nav_toko) {
-                replaceFragment(new toko());
-            } else if (item.getItemId() == R.id.nav_history) {
-                replaceFragment(new history());
-            } else if (item.getItemId() == R.id.nav_akun) {
+            }
+//            else if (item.getItemId() == R.id.nav_toko) {
+//                replaceFragment(new toko());
+//            } else if (item.getItemId() == R.id.nav_history) {
+//                replaceFragment(new history());
+//            }
+            else if (item.getItemId() == R.id.nav_akun) {
                 replaceFragment(new account());
             }
             return true;
