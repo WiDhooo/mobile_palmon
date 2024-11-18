@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/icon_username"
                 android:background="@android:color/transparent"
-                android:hint="Username or Email"
+                android:hint="Username"
                 android:padding="8dp"
                 android:textColor="#000"
                 android:textSize="16sp" />

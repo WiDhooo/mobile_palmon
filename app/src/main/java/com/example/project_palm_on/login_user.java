@@ -102,7 +102,7 @@ public class login_user extends AppCompatActivity {
                                 startActivity(new Intent(login_user.this, get_started.class));
                                 finish();
                             } else {
-                                Toast.makeText(login_user.this, "Login gagal: " + response.getString("message"), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(login_user.this, "Username atau password tidak sesuai", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

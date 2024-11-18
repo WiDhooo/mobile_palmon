@@ -27,7 +27,7 @@ public class ubah_kalkulasi extends AppCompatActivity {
             upahPanenEditText, biayaTransportasiEditText, biayaLainnyaEditText;
     private Button buttonSimpanPerubahan, buttonKembali;
     private String kalkulasiId;
-    private String userId; // Variabel userId diambil dari Intent
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class ubah_kalkulasi extends AppCompatActivity {
 
         // Ambil data dari Intent
         kalkulasiId = getIntent().getStringExtra("KALKULASI_ID");
-        userId = getIntent().getStringExtra("USER_ID"); // Ambil user_id dari Intent
+        userId = getIntent().getStringExtra("USER_ID");
         String tglPanen = getIntent().getStringExtra("tgl_panen");
         String hargaTbs = getIntent().getStringExtra("harga_tbs");
         String beratTotalTbs = getIntent().getStringExtra("berat_total_tbs");
@@ -80,7 +80,67 @@ public class ubah_kalkulasi extends AppCompatActivity {
         buttonKembali.setOnClickListener(v -> finish());
     }
 
+    private boolean validateInput() {
+        boolean isValid = true;
+
+        // Validasi Tanggal Panen
+        String tglPanen = tglPanenEditText.getText().toString().trim();
+        if (tglPanen.isEmpty()) {
+            tglPanenEditText.setError("Tanggal panen tidak boleh kosong");
+            isValid = false;
+        }
+
+        // Validasi Harga TBS
+        String hargaTBS = hargaTBSEditText.getText().toString().trim();
+        if (hargaTBS.isEmpty() || !hargaTBS.matches("\\d+(\\.\\d+)?")) {
+            hargaTBSEditText.setError("Harga TBS harus berupa angka yang valid");
+            isValid = false;
+        }
+
+        // Validasi Berat Total TBS
+        String beratTotalTBS = beratTotalTBSEditText.getText().toString().trim();
+        if (beratTotalTBS.isEmpty() || !beratTotalTBS.matches("\\d+(\\.\\d+)?")) {
+            beratTotalTBSEditText.setError("Berat total TBS harus berupa angka yang valid");
+            isValid = false;
+        }
+
+        // Validasi Potongan Timbangan
+        String potonganTimbangan = potonganTimbanganEditText.getText().toString().trim();
+        if (potonganTimbangan.isEmpty() || !potonganTimbangan.matches("\\d+(\\.\\d+)?")) {
+            potonganTimbanganEditText.setError("Potongan timbangan harus berupa angka yang valid");
+            isValid = false;
+        }
+
+        // Validasi Upah Panen
+        String upahPanen = upahPanenEditText.getText().toString().trim();
+        if (upahPanen.isEmpty() || !upahPanen.matches("\\d+(\\.\\d+)?")) {
+            upahPanenEditText.setError("Upah panen harus berupa angka yang valid");
+            isValid = false;
+        }
+
+        // Validasi Biaya Transportasi
+        String biayaTransportasi = biayaTransportasiEditText.getText().toString().trim();
+        if (biayaTransportasi.isEmpty() || !biayaTransportasi.matches("\\d+(\\.\\d+)?")) {
+            biayaTransportasiEditText.setError("Biaya transportasi harus berupa angka yang valid");
+            isValid = false;
+        }
+
+        // Validasi Biaya Lainnya
+        String biayaLainnya = biayaLainnyaEditText.getText().toString().trim();
+        if (biayaLainnya.isEmpty() || !biayaLainnya.matches("\\d+(\\.\\d+)?")) {
+            biayaLainnyaEditText.setError("Biaya lainnya harus berupa angka yang valid");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
     private void updateKalkulasi() {
+        if (!validateInput()) {
+            Toast.makeText(this, "Perbaiki input sebelum melanjutkan", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (userId == null || kalkulasiId == null) {
             Toast.makeText(this, "User ID atau Kalkulasi ID tidak ditemukan", Toast.LENGTH_SHORT).show();
             return;
@@ -102,31 +162,22 @@ public class ubah_kalkulasi extends AppCompatActivity {
             // Membuat request JSON untuk memperbarui data
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonBody,
                     response -> {
-                        // Tindakan setelah berhasil memperbarui data
                         Toast.makeText(ubah_kalkulasi.this, "Data berhasil diupdate", Toast.LENGTH_SHORT).show();
-                        setResult(RESULT_OK); // Memberi tanda sukses ke hasil_kalkulasi
-                        Intent intent = new Intent(ubah_kalkulasi.this, hasil_kalkulasi.class);
-                        intent.putExtra("KALKULASI_ID", kalkulasiId);  // Mengirim ID kalkulasi
-                        intent.putExtra("USER_ID", userId);  // Mengirim userId
-                        startActivity(intent);
+                        setResult(RESULT_OK);
+                        finish();
                     },
                     error -> {
-                        // Tindakan ketika ada error
                         Log.e("API_ERROR", error.toString());
                         Toast.makeText(ubah_kalkulasi.this, "Gagal mengupdate data", Toast.LENGTH_SHORT).show();
                     }
             );
 
-            // Menambahkan request ke request queue
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(jsonObjectRequest);
 
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(this, "Gagal membuat JSON", Toast.LENGTH_SHORT).show();
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Input tidak valid, pastikan angka dimasukkan dengan benar", Toast.LENGTH_SHORT).show();
         }
     }
 }
