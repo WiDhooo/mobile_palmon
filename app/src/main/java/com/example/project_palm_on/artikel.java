@@ -50,7 +50,7 @@ public class artikel extends AppCompatActivity {
 
         // Initialize data
         artikelList = new ArrayList<>();
-        artikelList.add(new item_artikel("Ahmad", "Keberlanjutan dalam Pertanian Sawit: Tantangan..",
+        artikelList.add(new item_artikel("Budi", "Keberlanjutan dalam Pertanian Sawit: Tantangan..",
                 "Industri sawit merupakan salah satu sektor pertanian yang paling penting di Indonesia,..",
                 "17 hours ago", R.drawable.image_artikel_1, R.drawable.icon_titik_tiga_artikel));
 
